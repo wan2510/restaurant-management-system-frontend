@@ -65,7 +65,7 @@ const ModalBill = ({ vouchers, tables, onCreateBill, userRole }) => {
                     selectedTable={selectedTable}
                     setSelectedTable={setSelectedTable}
                 />
-
+            <div style={{ maxHeight: '18vw', overflowY: 'auto' }}>
                 <List
                     dataSource={bill}
                     locale={{
@@ -139,7 +139,7 @@ const ModalBill = ({ vouchers, tables, onCreateBill, userRole }) => {
                         </div>
                     )}
                 />
-
+            </div>
                 <HandleSelectVoucher
                     vouchers={vouchers}
                     selectedVoucher={selectedVoucher}

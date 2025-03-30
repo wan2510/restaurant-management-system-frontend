@@ -68,7 +68,7 @@ const Order = ({ user }) => {
       bill: [],
       selectedTable: null,
       selectedVoucher: null,
-      paymentMethod: "Tiền mặt", // Đặt lại về mặc định
+      paymentMethod: "Tiền mặt", 
       cashReceived: 0,
       isPaymentModalOpen: false,
     });

@@ -1,53 +1,51 @@
 import { message } from 'antd';
 
-// URL API
+// Đường dẫn API cơ bản
 const API_URL = 'http://localhost:8080/api';
 const headers = {
     'Content-Type': 'application/json',
     Accept: 'application/json',
 };
 
+// Lấy token từ localStorage
 const getAccessToken = () => {
     const token = localStorage.getItem('accessToken');
     return token ? `Bearer ${token}` : null;
 };
 
-const mockTables = [
-    { id: 1, tableNumber: "1", capacity: 4, bookedGuests: 0, status: "AVAILABLE", type: "STANDARD" },
-    { id: 2, tableNumber: "2", capacity: 6, bookedGuests: 0, status: "AVAILABLE", type: "STANDARD" },
-    { id: 3, tableNumber: "3", capacity: 2, bookedGuests: 0, status: "AVAILABLE", type: "VIP" },
-    { id: 4, tableNumber: "4", capacity: 8, bookedGuests: 0, status: "AVAILABLE", type: "STANDARD" },
-    { id: 5, tableNumber: "5", capacity: 4, bookedGuests: 0, status: "AVAILABLE", type: "VIP" },
-];
-
+// Trạng thái đơn hàng
 let orderState = {
-    bill: [],
-    selectedTable: null,
-    selectedVoucher: null,
-    paymentMethod: 'Tiền mặt',
-    cashReceived: 0,
-    isPaymentModalOpen: false,
+    bill: [],              // Danh sách món trong hóa đơn
+    selectedTable: null,   // Bàn được chọn
+    selectedVoucher: null, // Voucher được chọn
+    paymentMethod: 'Tiền mặt', // Phương thức thanh toán
+    cashReceived: 0,       // Số tiền mặt nhận được
+    isPaymentModalOpen: false, // Trạng thái modal thanh toán
 };
 
+// Quản lý các hàm theo dõi trạng thái
 const subscribers = new Set();
 
+// Đăng ký theo dõi trạng thái
 export const subscribe = (listener) => {
     subscribers.add(listener);
     listener(orderState);
     return () => subscribers.delete(listener);
 };
 
+// Cập nhật trạng thái
 export const setState = (newState) => {
     orderState = { ...orderState, ...newState };
-    console.log("New orderState:", orderState); 
+    console.log("New orderState:", orderState);
     subscribers.forEach((listener) => listener(orderState));
-  };
-  
+};
+
+// Lấy trạng thái hiện tại
 export const getState = () => {
     return { ...orderState };
 };
 
-// Lấy danh sách bàn
+// Lấy danh sách bàn từ API
 export const getTables = async () => {
     try {
         const token = getAccessToken();
@@ -75,18 +73,11 @@ export const getTables = async () => {
     } catch (error) {
         console.error('Error fetching tables:', error);
         message.error('Không thể tải danh sách bàn!');
-        return mockTables.map((table) => ({
-            id: table.id,
-            number: table.tableNumber,
-            max_number_human: table.capacity,
-            bookedGuests: table.bookedGuests,
-            status: table.status,
-            type: table.type,
-        }));
+        throw error;
     }
 };
 
-// Lấy danh sách món ăn từ API /api/food
+// Lấy danh sách món ăn từ API
 export const getMenuItems = async () => {
     try {
         const token = getAccessToken();
@@ -99,11 +90,7 @@ export const getMenuItems = async () => {
             method: 'GET',
             headers: headersWithToken,
         });
-
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-
+        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
         const data = await response.json();
         console.log('Foods from server:', data);
 
@@ -122,7 +109,7 @@ export const getMenuItems = async () => {
     }
 };
 
-// Lấy danh sách danh mục
+// Lấy danh sách danh mục món ăn từ API
 export const getFoodCategories = async () => {
     try {
         const token = getAccessToken();
@@ -135,13 +122,10 @@ export const getFoodCategories = async () => {
             method: 'GET',
             headers: headersWithToken,
         });
-
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-
+        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
         const data = await response.json();
         console.log('Categories from server:', data);
+
         return data.map((category) => ({
             id: category.uuid,
             name: category.name,
@@ -154,7 +138,7 @@ export const getFoodCategories = async () => {
     }
 };
 
-// Lấy danh sách voucher
+// Lấy danh sách voucher từ API
 export const getVouchers = async () => {
     try {
         const token = getAccessToken();
@@ -184,79 +168,77 @@ export const getVouchers = async () => {
     } catch (error) {
         console.error('Error fetching vouchers:', error);
         message.error('Không thể tải danh sách voucher!');
-        return mockVouchers.map((voucher) => ({
-            id: voucher.id,
-            code: voucher.code,
-            name: voucher.name,
-            discount: voucher.discount,
-            max_discount_value: voucher.max_discount_value,
-            min_order_value: voucher.min_order_value,
-            status: voucher.status,
-            type: voucher.type,
-        }));
+        throw error;
     }
 };
 
 // Thêm món vào hóa đơn
 export const addToBill = async (item) => {
     try {
-      if (!item || !item.id || !item.name || !item.price) {
-        message.error('Dữ liệu món ăn không hợp lệ!');
-        return { success: false };
-      }
-      const existingItem = orderState.bill.find((i) => i.id === item.id);
-      const newBill = existingItem
-        ? orderState.bill.map((i) =>
-            i.id === item.id
-              ? { ...i, quantity: Math.min(i.quantity + 1, 50) }
-              : i
-          )
-        : [...orderState.bill, { ...item, quantity: 1 }];
-      setState({ bill: newBill }); // Chỉ cập nhật bill
-      return { success: true, bill: newBill };
+        if (!item || !item.id || !item.name || !item.price) {
+            message.error('Dữ liệu món ăn không hợp lệ!');
+            return { success: false };
+        }
+        const existingItem = orderState.bill.find((i) => i.id === item.id);
+        const newBill = existingItem
+            ? orderState.bill.map((i) =>
+                  i.id === item.id
+                      ? { ...i, quantity: Math.min(i.quantity + 1, 50) }
+                      : i
+              )
+            : [...orderState.bill, { ...item, quantity: 1 }];
+        setState({ bill: newBill });
+        return { success: true, bill: newBill };
     } catch (error) {
-      console.error('Error adding to bill:', error);
-      return { success: false, error };
+        console.error('Error adding to bill:', error);
+        return { success: false, error };
     }
-  };
-  
-  // Chọn bàn
-  export const setSelectedTable = async (tableNumber) => {
-    try {
-      const table = mockTables.find((t) => t.tableNumber === tableNumber);
-      if (table) {
-        setState({ selectedTable: table.tableNumber }); // Chỉ cập nhật selectedTable
-        return { success: true, selectedTable: table.tableNumber };
-      } else {
-        message.error(`Không tìm thấy bàn số ${tableNumber}!`);
-        return { success: false };
-      }
-    } catch (error) {
-      console.error('Error setting table:', error);
-      return { success: false, error };
-    }
-  };
-  
-  // Chọn voucher
-  export const setSelectedVoucher = async (voucher) => {
-    try {
-      const totalPrice = getTotalPrice();
-      if (voucher && totalPrice < voucher.min_order_value) {
-        message.warning(
-          `Đơn hàng phải từ ${voucher.min_order_value.toLocaleString()} VND để áp dụng voucher này!`
-        );
-        setState({ selectedVoucher: null }); // Chỉ cập nhật selectedVoucher
-        return { success: false, selectedVoucher: null };
-      }
-      setState({ selectedVoucher: voucher || null }); // Chỉ cập nhật selectedVoucher
-      return { success: true, selectedVoucher: voucher || null };
-    } catch (error) {
-      console.error('Error setting voucher:', error);
-      return { success: false, error };
-    }
-  };
+};
 
-// Cập nhật số lượng hoặc xóa món
+// Chọn bàn
+export const setSelectedTable = async (tableNumber) => {
+    try {
+        const tables = await getTables();
+        const table = tables.find((t) => t.number === tableNumber);
+
+        if (table) {
+            if (table.status !== 'available') { // Sửa thành 'available' chữ thường
+                message.error(`Bàn ${tableNumber} hiện không khả dụng!`);
+                return { success: false, error: 'Table not available' };
+            }
+            setState({ selectedTable: table.number });
+            return { success: true, selectedTable: table.number };
+        } else {
+            message.error(`Không tìm thấy bàn số ${tableNumber}!`);
+            return { success: false, error: 'Table not found' };
+        }
+    } catch (error) {
+        console.error('Error setting table:', error);
+        message.error('Lỗi khi chọn bàn!');
+        return { success: false, error: error.message };
+    }
+};
+
+// Chọn voucher
+export const setSelectedVoucher = async (voucher) => {
+    try {
+        const totalPrice = getTotalPrice();
+        if (voucher && totalPrice < voucher.min_order_value) {
+            message.warning(
+                `Đơn hàng phải từ ${voucher.min_order_value.toLocaleString()} VND để áp dụng voucher này!`
+            );
+            setState({ selectedVoucher: null });
+            return { success: false, selectedVoucher: null };
+        }
+        setState({ selectedVoucher: voucher || null });
+        return { success: true, selectedVoucher: voucher || null };
+    } catch (error) {
+        console.error('Error setting voucher:', error);
+        return { success: false, error };
+    }
+};
+
+// Cập nhật số lượng món hoặc xóa món
 export const updateItem = async (id, quantity) => {
     try {
         if (quantity < 0) {
@@ -296,7 +278,7 @@ export const setPaymentMethod = async (method) => {
     }
 };
 
-// Cập nhật số tiền mặt
+// Cập nhật số tiền mặt nhận được
 export const setCashReceived = async (amount) => {
     try {
         if (amount < 0) {
@@ -311,7 +293,7 @@ export const setCashReceived = async (amount) => {
     }
 };
 
-// Tính tổng giá
+// Tính tổng giá hóa đơn
 export const getTotalPrice = () => {
     return orderState.bill.reduce(
         (sum, item) => sum + item.price * item.quantity,
@@ -319,7 +301,7 @@ export const getTotalPrice = () => {
     );
 };
 
-// Tính giảm giá
+// Tính số tiền giảm giá
 export const getDiscount = () => {
     const totalPrice = getTotalPrice();
     if (
@@ -336,20 +318,42 @@ export const getDiscount = () => {
     return 0;
 };
 
-// Tính giá cuối cùng
+// Tính giá cuối cùng sau giảm giá
 export const getFinalPrice = () => {
     return getTotalPrice() - getDiscount();
 };
 
 // Kiểm tra trước khi tạo hóa đơn
 export const validateBeforeCreate = async () => {
-    if (!orderState.selectedTable) {
-        message.error('Vui lòng chọn bàn trước khi tạo hóa đơn!');
-        return { success: false };
+    try {
+        if (!orderState.selectedTable) {
+            message.error('Vui lòng chọn bàn trước khi tạo hóa đơn!');
+            return { success: false, error: 'No table selected' };
+        }
+        if (orderState.bill.length === 0) {
+            message.error('Chưa có món nào trong hóa đơn!');
+            return { success: false, error: 'Empty bill' };
+        }
+        const tables = await getTables();
+        const selectedTableData = tables.find(
+            (table) => table.number === orderState.selectedTable
+        );
+        if (!selectedTableData) {
+            message.error(`Bàn ${orderState.selectedTable} không tồn tại!`);
+            return { success: false, error: 'Table not found' };
+        }
+        if (selectedTableData.status !== 'available') { // Sửa thành 'available' chữ thường
+            message.error(`Bàn ${orderState.selectedTable} hiện không khả dụng!`);
+            return { 
+                success: false, 
+                error: 'Table not available',
+                tableStatus: selectedTableData.status 
+            };
+        }
+        return { success: true, tableData: selectedTableData };
+    } catch (error) {
+        console.error('Error validating before create:', error);
+        message.error('Lỗi khi kiểm tra thông tin đặt bàn!');
+        return { success: false, error: error.message || 'Validation failed' };
     }
-    if (orderState.bill.length === 0) {
-        message.error('Chưa có món nào trong hóa đơn!');
-        return { success: false };
-    }
-    return { success: true };
 };

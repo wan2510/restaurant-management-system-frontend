@@ -1,14 +1,14 @@
-import React, { useEffect } from 'react';
-import { Form, Input, Select, DatePicker, Space } from 'antd';
-import dayjs from 'dayjs';
+import React, { useEffect } from 'react'; // Import React và useEffect
+import { Form, Input, Select, DatePicker, Space } from 'antd'; // Import component Ant Design
+import dayjs from 'dayjs'; // Import thư viện ngày giờ
 
-const { Option } = Select;
+const { Option } = Select; // Lấy Option từ Select
 
-const VoucherForm = ({ form, editingVoucher }) => {
-    useEffect(() => {
-        console.log('Voucher đang chỉnh sửa:', editingVoucher);
-        if (editingVoucher) {
-            form.setFieldsValue({
+const VoucherForm = ({ form, editingVoucher }) => { // Nhận form và voucher
+    useEffect(() => { // Chạy khi editingVoucher/form thay đổi
+        console.log('Voucher đang chỉnh sửa:', editingVoucher); // In dữ liệu debug
+        if (editingVoucher) { // Nếu chỉnh sửa
+            form.setFieldsValue({ // Điền dữ liệu cũ
                 id: editingVoucher.id,
                 name: editingVoucher.name,
                 code: editingVoucher.code,
@@ -31,9 +31,9 @@ const VoucherForm = ({ form, editingVoucher }) => {
                     ? dayjs(editingVoucher.updatedAt)
                     : null,
             });
-        } else {
-            form.resetFields();
-            form.setFieldsValue({
+        } else { // Nếu tạo mới
+            form.resetFields(); // Xóa form
+            form.setFieldsValue({ // Giá trị mặc định
                 status: 'ACTIVE',
                 expiredAt: dayjs()
                     .add(30, 'day')
@@ -45,21 +45,21 @@ const VoucherForm = ({ form, editingVoucher }) => {
                 updatedAt: dayjs(),
             });
         }
-    }, [editingVoucher, form]);
+    }, [editingVoucher, form]); // Phụ thuộc editingVoucher và form
 
-    const formatMoney = (value) => {
+    const formatMoney = (value) => { // Định dạng số (VD: 10000 -> 10.000)
         if (!value) return '';
         return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
     };
 
-    const formatInt = (value) => {
+    const formatInt = (value) => { // Chuyển chuỗi thành số (VD: "10.000" -> 10000)
         if (!value) return '';
         const cleanedValue = value.toString().replace(/\./g, '');
         const parsedValue = parseInt(cleanedValue, 10);
         return isNaN(parsedValue) ? '' : parsedValue;
     };
 
-    const handleInputLimit = (field, min, max) => (e) => {
+    const handleInputLimit = (field, min, max) => (e) => { // Giới hạn giá trị nhập
         let value = formatInt(e.target.value);
         if (value === '') value = min;
         if (value < min) value = min;
@@ -67,12 +67,12 @@ const VoucherForm = ({ form, editingVoucher }) => {
         form.setFieldsValue({ [field]: formatMoney(value) });
     };
 
-    const handleCodeChange = (e) => {
+    const handleCodeChange = (e) => { // Xử lý mã voucher
         let value = e.target.value.toUpperCase().replace(/[^A-Z0-9]/g, '');
         form.setFieldsValue({ code: value });
     };
 
-    const handleExpiredDateChange = (date) => {
+    const handleExpiredDateChange = (date) => { // Xử lý ngày hết hạn
         if (date) {
             const endOfDay = date
                 .set('hour', 23)
@@ -82,16 +82,16 @@ const VoucherForm = ({ form, editingVoucher }) => {
         }
     };
 
-    return (
-        <Form layout="vertical" form={form}>
+    return ( // Giao diện form
+        <Form layout="vertical" form={form}> 
             {/* Các trường ẩn */}
-            <Form.Item name="id" hidden>
+            <Form.Item name="id" hidden> 
                 <Input hidden />
             </Form.Item>
-            <Form.Item name="createdAt" hidden>
+            <Form.Item name="createdAt" hidden> 
                 <Input hidden />
             </Form.Item>
-            <Form.Item name="updatedAt" hidden>
+            <Form.Item name="updatedAt" hidden> 
                 <Input hidden />
             </Form.Item>
 
@@ -271,4 +271,4 @@ const VoucherForm = ({ form, editingVoucher }) => {
     );
 };
 
-export default VoucherForm;
+export default VoucherForm; // Xuất component
