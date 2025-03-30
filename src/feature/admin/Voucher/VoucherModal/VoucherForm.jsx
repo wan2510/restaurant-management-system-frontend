@@ -219,7 +219,6 @@ const VoucherForm = ({ form, editingVoucher }) => { // Nhận form và voucher
                     <Option value="FOR_ALL_USERS">Cho người dùng</Option>
                     <Option value="FOR_NEW_USERS">Cho người mới</Option>
                     <Option value="FOR_VIP_USERS">Cho khách VIP</Option>
-                    <Option value="FOR_STAFF">Cho nhân viên</Option>
                 </Select>
             </Form.Item>
 
