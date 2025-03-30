@@ -1,38 +1,38 @@
-/* Container chính */
+/* Page.css */
 .page-container {
   display: flex;
-  flex-direction: row; /* Mặc định là hàng ngang */
+  flex-direction: row;
   justify-content: space-between;
-  padding: 2vw; /* Khoảng cách linh hoạt */
-  min-height: calc(100vh - 5rem); /* Đảm bảo chiều cao đầy đủ */
-  background-color: #f5f5f5; /* Nền nhẹ nhàng */
-  gap: 2vw; /* Khoảng cách giữa các phần tử */
+  padding: 1rem; /* Đồng nhất padding */
+  min-height: calc(100vh - 5rem);
+  background-color: #f5f5f5;
+  gap: 1rem; /* Đồng nhất khoảng cách */
 }
 
 /* Menu container */
 .menu-container {
-  flex-basis: 60%; /* Chiếm 60% chiều rộng mặc định */
+  flex-basis: 60%;
   background-color: #fff;
   border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  padding: 2vw; /* Khoảng cách bên trong */
-  max-height: calc(100vh - 8rem); /* Giới hạn chiều cao */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Đồng nhất box-shadow */
+  padding: 1rem; /* Đồng nhất padding */
+  max-height: calc(100vh - 6rem); /* Điều chỉnh chiều cao */
 }
 
 /* Hóa đơn container */
 .bill-container {
-  flex-basis: 35%; /* Chiếm 35% chiều rộng mặc định */
+  flex-basis: 35%;
   background-color: #fff;
   border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  padding: 2vw; /* Khoảng cách bên trong */
-  display: flex; /* Đảm bảo nội dung bên trong căn chỉnh đúng */
-  flex-direction: column; /* Sắp xếp theo cột */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Đồng nhất box-shadow */
+  padding: 1rem; /* Đồng nhất padding */
+  display: flex;
+  flex-direction: column;
 }
 
 /* Khoảng cách chữ trong hóa đơn */
 .bill-container .ant-typography {
-  margin-bottom: 1rem; /* Khoảng cách cố định */
+  margin-bottom: 0.75rem; /* Đồng nhất khoảng cách */
 }
 
 /* Mỗi món trong hóa đơn */
@@ -40,48 +40,49 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: #fafafa;
-  padding: 1rem;
+  background: #f9f9f9; /* Đồng nhất màu nền */
+  padding: 0.5rem 0.75rem; /* Đồng nhất padding */
   border-radius: 6px;
-  margin-bottom: 0.75rem; /* Khoảng cách giữa các món */
-  transition: all 0.3s ease; /* Hiệu ứng mượt mà */
+  margin-bottom: 0.75rem; /* Đồng nhất khoảng cách */
+  transition: all 0.3s ease;
 }
 
 .bill-item:hover {
-  background: #e0f7fa; /* Màu nền khi hover */
-  transform: translateY(-2px); /* Nâng nhẹ khi hover */
+  background: #e6f7ff; /* Đồng nhất màu hover với ModalBill */
+  transform: translateY(-2px);
 }
 
 .bill-item .item-info {
   flex-grow: 1;
-  margin-right: 1rem; /* Khoảng cách giữa thông tin và số lượng */
+  margin-right: 0.75rem; /* Đồng nhất khoảng cách */
 }
 
 .bill-item .item-name {
-  font-weight: 600;
-  font-size: clamp(14px, 4vw, 16px); /* Kích thước linh hoạt */
-  color: #333;
+  font-weight: 500; /* Đồng nhất font-weight */
+  font-size: 14px; /* Đồng nhất font-size */
+  color: #333; /* Đồng nhất màu chữ */
 }
 
 .bill-item .item-price {
-  font-size: clamp(12px, 3vw, 14px); /* Kích thước linh hoạt */
-  color: #666;
+  font-size: 12px; /* Đồng nhất font-size */
+  color: #666; /* Đồng nhất màu chữ */
 }
 
 .bill-item .final-price {
-  font-size: clamp(14px, 4vw, 16px); /* Kích thước linh hoạt */
-  font-weight: bold;
-  color: #ff5722;
+  font-size: 14px; /* Đồng nhất font-size */
+  font-weight: 500; /* Đồng nhất font-weight */
+  color: #ff6600; /* Đồng nhất màu chữ */
 }
 
 .bill-item .item-quantity {
-  width: clamp(60px, 15vw, 70px); /* Chiều rộng linh hoạt */
+  width: 60px; /* Đồng nhất chiều rộng */
   text-align: center;
   border: 1px solid #ddd;
   border-radius: 4px;
   padding: 0.5rem;
   background: #fff;
   font-weight: 500;
+  font-size: 14px; /* Đồng nhất font-size */
 }
 
 .bill-item .delete-btn {
@@ -89,23 +90,23 @@
   color: white;
   border: none;
   border-radius: 4px;
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 0.75rem; /* Đồng nhất padding */
   cursor: pointer;
-  font-size: clamp(10px, 3vw, 12px); /* Kích thước linh hoạt */
-  transition: background 0.3s ease;
+  font-size: 12px; /* Đồng nhất font-size */
+  transition: all 0.3s ease;
 }
 
 .bill-item .delete-btn:hover {
-  background: #d9363e;
+  background: #ff7875; /* Đồng nhất màu hover */
 }
 
 /* Tổng tiền */
 .total-price {
-  font-weight: 600;
-  font-size: clamp(16px, 4vw, 18px); /* Kích thước linh hoạt */
-  color: #ff5722;
+  font-weight: 500; /* Đồng nhất font-weight */
+  font-size: 16px; /* Đồng nhất font-size */
+  color: #ff6600; /* Đồng nhất màu chữ */
   text-align: right;
-  margin-top: 1rem;
+  margin-top: 1rem; /* Đồng nhất khoảng cách */
   padding-top: 0.75rem;
   border-top: 1px solid #eee;
 }
@@ -113,19 +114,20 @@
 /* Danh mục filter */
 .filter-container .ant-checkbox-wrapper {
   display: block;
-  margin-bottom: 0.75rem; /* Khoảng cách giữa các mục */
-  font-size: clamp(12px, 3vw, 14px); /* Kích thước linh hoạt */
-  color: #444;
+  margin-bottom: 0.75rem; /* Đồng nhất khoảng cách */
+  font-size: 14px; /* Đồng nhất font-size */
+  color: #333; /* Đồng nhất màu chữ */
 }
 
 /* Nút tạo hóa đơn */
 .bill-container .ant-btn-primary {
   width: 100%;
-  margin-top: 1.5rem; /* Khoảng cách trên */
+  margin-top: 1rem; /* Đồng nhất khoảng cách */
   background: #1890ff;
   border-color: #1890ff;
   font-weight: 500;
-  padding: 0.5rem; /* Padding linh hoạt */
+  padding: 0.5rem;
+  font-size: 14px; /* Đồng nhất font-size */
 }
 
 .bill-container .ant-btn-primary:hover {
@@ -136,29 +138,29 @@
 /* Dropdown chọn bàn và voucher */
 .bill-container .ant-select {
   width: 100%;
-  margin-bottom: 1rem; /* Khoảng cách dưới */
+  margin-bottom: 0.75rem; /* Đồng nhất khoảng cách */
 }
 
 /* Thẻ món ăn */
 .food-card {
-  height: 24rem; /* Chiều cao thẻ */
+  height: 24rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  border-radius: 8px; /* Bo góc nhẹ */
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Bóng nhẹ */
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Đồng nhất box-shadow */
 }
 
 /* Hình ảnh món ăn */
 .food-card .ant-card-cover {
-  height: 16rem; /* Chiều cao hình ảnh */
+  height: 16rem;
   overflow: hidden;
 }
 
 .food-card .ant-card-cover img {
   width: 100%;
   height: 100%;
-  object-fit: cover; /* Đảm bảo hình ảnh không bị méo */
+  object-fit: cover;
 }
 
 /* Nội dung trong thẻ */
@@ -167,49 +169,50 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 0.5rem; /* Thêm padding cho nội dung */
+  padding: 0.5rem;
 }
 
 .food-card .ant-card-meta-title {
-  font-size: clamp(14px, 4vw, 16px); /* Kích thước linh hoạt */
+  font-size: 14px; /* Đồng nhất font-size */
   white-space: nowrap;
   overflow: hidden;
-  text-overflow: ellipsis; /* Cắt ngắn nếu quá dài */
+  text-overflow: ellipsis;
+  color: #333; /* Đồng nhất màu chữ */
 }
 
 .food-card .ant-card-meta-description {
-  font-size: clamp(12px, 3vw, 14px); /* Kích thước linh hoạt */
-  color: #666;
+  font-size: 12px; /* Đồng nhất font-size */
+  color: #666; /* Đồng nhất màu chữ */
 }
 
 /* Sửa ModalBill */
 .bill-container .ant-card {
-  width: 100%; /* Đảm bảo card chiếm toàn bộ chiều rộng */
+  width: 100%;
   border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); /* Đồng nhất box-shadow */
   border: 1px solid #e8e8e8;
-  min-height: 100%; /* Đảm bảo card chiếm toàn bộ chiều cao */
+  min-height: 100%;
 }
 
 .bill-container .ant-card-body {
-  padding: 1rem; /* Padding bên trong card */
-  height: 100%; /* Đảm bảo body chiếm toàn bộ chiều cao */
+  padding: 1rem; /* Đồng nhất padding */
+  height: 100%;
 }
 
 .bill-container .ant-space {
-  width: 100%; /* Đảm bảo Space chiếm toàn bộ chiều rộng */
+  width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 0.75rem; /* Khoảng cách giữa các phần tử trong Space */
+  gap: 0.75rem; /* Đồng nhất khoảng cách */
 }
 
 /* Sửa các phần tử trong ModalBill */
 .bill-container .ant-list {
-  margin-bottom: 0.75rem; /* Khoảng cách dưới danh sách món */
+  margin-bottom: 0.75rem; /* Đồng nhất khoảng cách */
 }
 
 .bill-container .ant-list-item {
-  padding: 0.5rem; /* Padding cho mỗi món */
+  padding: 0.5rem; /* Đồng nhất padding */
 }
 
 /* Responsive Design với Media Queries */
@@ -217,76 +220,102 @@
 /* Màn hình tablet (dưới 1024px) */
 @media (max-width: 1024px) {
   .page-container {
-      flex-direction: column; /* Chuyển sang cột */
-      padding: 1.5vw;
+    flex-direction: column;
+    padding: 0.75rem; /* Đồng nhất padding */
+    gap: 0.75rem; /* Đồng nhất khoảng cách */
   }
 
   .menu-container {
-      flex-basis: auto; /* Không giới hạn chiều rộng */
-      width: 100%; /* Chiếm toàn bộ chiều rộng */
-      margin: 0 0 1.5rem 0; /* Chỉ có khoảng cách dưới */
+    flex-basis: auto;
+    width: 100%;
+    margin: 0 0 0.75rem 0;
+    padding: 0.75rem; /* Đồng nhất padding */
   }
 
   .bill-container {
-      flex-basis: auto;
-      width: 100%; /* Chiếm toàn bộ chiều rộng */
-      margin: 0;
-      max-height: none; /* Bỏ giới hạn chiều cao để hiển thị đầy đủ */
-      height: auto; /* Chiều cao tự động */
+    flex-basis: auto;
+    width: 100%;
+    margin: 0;
+    max-height: none;
+    height: auto;
+    padding: 0.75rem; /* Đồng nhất padding */
   }
 
   .food-card {
-      height: 20rem; /* Giảm chiều cao thẻ */
+    height: 20rem;
   }
 
   .food-card .ant-card-cover {
-      height: 12rem; /* Giảm chiều cao hình ảnh */
+    height: 12rem;
+  }
+
+  .food-card .ant-card-meta-title {
+    font-size: 13px; /* Đồng nhất font-size */
+  }
+
+  .food-card .ant-card-meta-description {
+    font-size: 11px; /* Đồng nhất font-size */
   }
 }
 
 /* Màn hình mobile (dưới 768px) */
 @media (max-width: 768px) {
   .page-container {
-      padding: 1rem; /* Giảm padding */
+    padding: 0.5rem; /* Đồng nhất padding */
   }
 
   .menu-container {
-      padding: 1rem;
+    padding: 0.5rem; /* Đồng nhất padding */
   }
 
   .bill-container {
-      padding: 1rem;
-      max-height: none; /* Bỏ giới hạn chiều cao */
-      height: auto; /* Chiều cao tự động */
+    padding: 0.5rem; /* Đồng nhất padding */
+    max-height: none;
+    height: auto;
   }
 
   .bill-item {
-      flex-direction: column; /* Chuyển sang cột */
-      align-items: flex-start;
-      padding: 0.75rem;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0.4rem 0.6rem; /* Đồng nhất padding */
   }
 
   .bill-item .item-info {
-      margin-right: 0;
-      margin-bottom: 0.5rem;
+    margin-right: 0;
+    margin-bottom: 0.5rem;
+  }
+
+  .bill-item .item-name,
+  .bill-item .final-price {
+    font-size: 13px; /* Đồng nhất font-size */
+  }
+
+  .bill-item .item-price {
+    font-size: 11px; /* Đồng nhất font-size */
   }
 
   .bill-item .item-quantity {
-      width: 100%; /* Chiếm toàn bộ chiều rộng */
-      margin-bottom: 0.5rem;
+    width: 100%;
+    margin-bottom: 0.5rem;
+    font-size: 13px; /* Đồng nhất font-size */
   }
 
   .bill-item .delete-btn {
-      width: 100%; /* Chiếm toàn bộ chiều rộng */
-      text-align: center;
+    width: 100%;
+    text-align: center;
+    font-size: 11px; /* Đồng nhất font-size */
+  }
+
+  .total-price {
+    font-size: 14px; /* Đồng nhất font-size */
   }
 
   .food-card {
-      height: 18rem; /* Giảm chiều cao thẻ */
+    height: 18rem;
   }
 
   .food-card .ant-card-cover {
-      height: 10rem; /* Giảm chiều cao hình ảnh */
+    height: 10rem;
   }
 }
 
@@ -294,39 +323,55 @@
 @media (max-width: 480px) {
   .bill-item .item-name,
   .bill-item .final-price {
-      font-size: 12px; /* Giảm kích thước chữ */
+    font-size: 12px; /* Đồng nhất font-size */
   }
 
   .bill-item .item-price {
-      font-size: 10px;
+    font-size: 10px; /* Đồng nhất font-size */
+  }
+
+  .bill-item .item-quantity {
+    font-size: 12px; /* Đồng nhất font-size */
+  }
+
+  .bill-item .delete-btn {
+    font-size: 10px; /* Đồng nhất font-size */
   }
 
   .total-price {
-      font-size: 14px;
+    font-size: 13px; /* Đồng nhất font-size */
   }
 
   .bill-container .ant-btn-primary {
-      font-size: 12px;
-      padding: 0.4rem;
+    font-size: 12px; /* Đồng nhất font-size */
+    padding: 0.4rem;
   }
 
   .food-card {
-      height: 16rem; /* Giảm chiều cao thẻ */
+    height: 16rem;
   }
 
   .food-card .ant-card-cover {
-      height: 8rem; /* Giảm chiều cao hình ảnh */
+    height: 8rem;
+  }
+
+  .food-card .ant-card-meta-title {
+    font-size: 12px; /* Đồng nhất font-size */
+  } 
+
+  .food-card .ant-card-meta-description {
+    font-size: 10px; /* Đồng nhất font-size */
   }
 
   .bill-container .ant-card-body {
-      padding: 0.75rem; /* Giảm padding */
+    padding: 0.5rem; /* Đồng nhất padding */
   }
 
   .bill-container .ant-space {
-      gap: 0.5rem; /* Giảm khoảng cách giữa các phần tử */
+    gap: 0.5rem; /* Đồng nhất khoảng cách */
   }
 
   .bill-container .ant-list-item {
-      padding: 0.3rem; /* Giảm padding cho mỗi món */
+    padding: 0.3rem; /* Đồng nhất padding */
   }
 }

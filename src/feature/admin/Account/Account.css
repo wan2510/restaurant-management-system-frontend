@@ -1,3 +1,4 @@
+/* Account.css */
 .account-container {
   padding: 20px;
   border: 2px solid #722ed1; /* Viền tím giống trong hình */
@@ -5,6 +6,8 @@
   background-color: #fff; /* Nền trắng */
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Đổ bóng nhẹ */
   margin: 0 auto; /* Căn giữa container */
+  max-width: 100%; /* Đảm bảo container không vượt quá màn hình */
+  overflow-x: auto; /* Thêm thanh cuộn ngang nếu nội dung vượt quá */
 }
 
 .account-title {
@@ -22,17 +25,24 @@
   justify-content: space-between; /* Nút "Thêm Tài Khoản" bên trái, bộ lọc bên phải */
   gap: 16px;
   margin-bottom: 16px;
+  flex-wrap: wrap; /* Cho phép các phần tử xuống dòng trên màn hình nhỏ */
 }
 
 .search-container {
   display: flex;
   gap: 8px;
+  flex-wrap: wrap; /* Cho phép ô tìm kiếm và các bộ lọc xuống dòng */
 }
 
 /* Style cho bảng */
 .account-table .ant-table {
   border: 1px solid #e8e8e8; /* Viền bảng */
   border-radius: 4px;
+  min-width: 800px; /* Đảm bảo bảng có chiều rộng tối thiểu để không bị co quá nhỏ */
+}
+
+.account-table .ant-table-wrapper {
+  overflow-x: auto; /* Thêm thanh cuộn ngang cho bảng */
 }
 
 .account-table .ant-table-thead > tr > th {
@@ -40,10 +50,23 @@
   color: #333;
   font-weight: 600;
   border-bottom: 1px solid #e8e8e8;
+  white-space: nowrap; /* Không cho phép tiêu đề cột xuống dòng */
 }
 
 .account-table .ant-table-tbody > tr:hover > td {
   background-color: #e6f7ff; /* Hiệu ứng hover màu xanh nhạt */
+}
+
+/* Đặt chiều rộng tối thiểu cho các cột */
+.account-table .ant-table-thead > tr > th,
+.account-table .ant-table-tbody > tr > td {
+  min-width: 100px; /* Chiều rộng tối thiểu cho mỗi cột */
+}
+
+/* Cột "THAO TÁC" có thể rộng hơn để chứa nút */
+.account-table .ant-table-thead > tr > th:last-child,
+.account-table .ant-table-tbody > tr > td:last-child {
+  min-width: 150px;
 }
 
 /* Style cho phần "Không có dữ liệu" */
@@ -95,4 +118,46 @@
   background-color: #d9363e !important;
   border-color: #d9363e !important;
   transform: scale(0.95);
+}
+
+/* Media Queries cho màn hình nhỏ */
+@media (max-width: 768px) {
+  .account-title {
+    font-size: 20px; /* Giảm kích thước tiêu đề trên màn hình nhỏ */
+  }
+
+  .action-buttons {
+    flex-direction: column; /* Xếp các phần tử theo cột */
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .search-container {
+    flex-direction: column; /* Xếp các ô tìm kiếm và bộ lọc theo cột */
+    width: 100%; /* Chiếm toàn bộ chiều rộng */
+  }
+
+  .search-container > * {
+    width: 100% !important; /* Đảm bảo các ô tìm kiếm và bộ lọc chiếm toàn bộ chiều rộng */
+  }
+
+  .account-table .ant-table {
+    min-width: 600px; /* Giảm chiều rộng tối thiểu của bảng trên tablet */
+  }
+}
+
+@media (max-width: 576px) {
+  .account-title {
+    font-size: 18px; /* Giảm kích thước tiêu đề trên mobile */
+  }
+
+  .account-table .ant-table {
+    min-width: 500px; /* Giảm chiều rộng tối thiểu của bảng trên mobile */
+  }
+
+  /* Ẩn bớt cột không quan trọng trên màn hình nhỏ (nếu cần) */
+  .account-table .ant-table-thead > tr > th:nth-child(3), /* Ví dụ: ẩn cột thứ 3 */
+  .account-table .ant-table-tbody > tr > td:nth-child(3) {
+    display: none; /* Ẩn cột thứ 3 trên mobile */
+  }
 }

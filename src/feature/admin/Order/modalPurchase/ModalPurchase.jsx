@@ -18,8 +18,7 @@ const ModalPurchase = ({
   cashReceived,
   setCashReceived,
 }) => {
-  const [note, setNote] = useState(""); // Add note state for cash payments
-
+  const [note, setNote] = useState("");
   const totalPrice = getTotalPrice();
   const discount = getDiscount();
   const finalPrice = getFinalPrice();
@@ -33,7 +32,7 @@ const ModalPurchase = ({
     discount,
     finalTotal: finalPrice,
     created_at: new Date().toISOString(),
-    note: paymentMethod === "Tiền mặt" ? note : "", // Include note in order if cash payment
+    note: paymentMethod === "Tiền mặt" ? note : "", 
   };
 
   const handleCashChange = (e) => {
@@ -46,7 +45,7 @@ const ModalPurchase = ({
   useEffect(() => {
     if (visible) {
       setCashReceived(0);
-      setNote(""); // Reset note when modal opens
+      setNote("");
     }
   }, [visible, setCashReceived]);
 
