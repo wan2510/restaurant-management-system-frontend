@@ -1,86 +1,86 @@
 /* Account.css */
 .account-container {
-  padding: 20px;
-  border: 2px solid #722ed1; /* Viền tím giống trong hình */
-  border-radius: 8px; /* Bo góc */
-  background-color: #fff; /* Nền trắng */
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Đổ bóng nhẹ */
-  margin: 0 auto; /* Căn giữa container */
-  max-width: 100%; /* Đảm bảo container không vượt quá màn hình */
-  overflow-x: auto; /* Thêm thanh cuộn ngang nếu nội dung vượt quá */
+  padding: 1rem;
+  border: 2px solid #722ed1;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin: 0 auto;
+  max-width: 100%;
+  max-height: 500px; /* Đủ để hiển thị 7 dòng và phần "Không có dữ liệu" */
+  overflow-x: auto;
+  overflow-y: auto;
 }
 
 .account-title {
-  text-align: center; /* Căn giữa tiêu đề */
-  font-size: 24px;
-  font-weight: 600;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 500;
   color: #333;
-  margin-bottom: 20px;
+  margin-bottom: 1rem;
 }
 
-/* Style cho ô tìm kiếm và nút "Thêm tài khoản" */
 .action-buttons {
   display: flex;
   align-items: center;
-  justify-content: space-between; /* Nút "Thêm Tài Khoản" bên trái, bộ lọc bên phải */
-  gap: 16px;
-  margin-bottom: 16px;
-  flex-wrap: wrap; /* Cho phép các phần tử xuống dòng trên màn hình nhỏ */
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
 }
 
 .search-container {
   display: flex;
-  gap: 8px;
-  flex-wrap: wrap; /* Cho phép ô tìm kiếm và các bộ lọc xuống dòng */
+  gap: 0.5rem;
+  flex-wrap: wrap;
 }
 
-/* Style cho bảng */
 .account-table .ant-table {
-  border: 1px solid #e8e8e8; /* Viền bảng */
+  border: 1px solid #e8e8e8;
   border-radius: 4px;
-  min-width: 800px; /* Đảm bảo bảng có chiều rộng tối thiểu để không bị co quá nhỏ */
+  min-width: 800px;
 }
 
 .account-table .ant-table-wrapper {
-  overflow-x: auto; /* Thêm thanh cuộn ngang cho bảng */
+  overflow-x: auto;
 }
 
 .account-table .ant-table-thead > tr > th {
-  background-color: #f5f5f5; /* Màu nền cho header */
+  background-color: #f5f5f5;
   color: #333;
-  font-weight: 600;
+  font-weight: 500;
   border-bottom: 1px solid #e8e8e8;
-  white-space: nowrap; /* Không cho phép tiêu đề cột xuống dòng */
+  white-space: nowrap;
 }
 
 .account-table .ant-table-tbody > tr:hover > td {
-  background-color: #e6f7ff; /* Hiệu ứng hover màu xanh nhạt */
+  background-color: #e6f7ff;
 }
 
-/* Đặt chiều rộng tối thiểu cho các cột */
 .account-table .ant-table-thead > tr > th,
 .account-table .ant-table-tbody > tr > td {
-  min-width: 100px; /* Chiều rộng tối thiểu cho mỗi cột */
+  min-width: 100px;
 }
 
-/* Cột "THAO TÁC" có thể rộng hơn để chứa nút */
 .account-table .ant-table-thead > tr > th:last-child,
 .account-table .ant-table-tbody > tr > td:last-child {
   min-width: 150px;
 }
 
-/* Style cho phần "Không có dữ liệu" */
 .account-empty {
   text-align: center;
-  padding: 50px;
+  padding: 2rem;
+  min-height: 200px; /* Đảm bảo phần "Không có dữ liệu" hiển thị đẹp */
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .account-empty .ant-empty-description {
   color: #888;
-  font-size: 16px;
+  font-size: 14px;
 }
 
-/* Hiệu ứng cho nút Sửa */
 .edit-button {
   background-color: #1890ff !important;
   border-color: #1890ff !important;
@@ -100,7 +100,6 @@
   transform: scale(0.95);
 }
 
-/* Hiệu ứng cho nút Xóa */
 .delete-button {
   background-color: #ff4d4f !important;
   border-color: #ff4d4f !important;
@@ -122,42 +121,75 @@
 
 /* Media Queries cho màn hình nhỏ */
 @media (max-width: 768px) {
+  .account-container {
+    padding: 0.75rem;
+    max-height: 50vh;
+  }
+
   .account-title {
-    font-size: 20px; /* Giảm kích thước tiêu đề trên màn hình nhỏ */
+    font-size: 16px;
   }
 
   .action-buttons {
-    flex-direction: column; /* Xếp các phần tử theo cột */
+    flex-direction: column;
     align-items: flex-start;
-    gap: 10px;
+    gap: 0.5rem;
   }
 
   .search-container {
-    flex-direction: column; /* Xếp các ô tìm kiếm và bộ lọc theo cột */
-    width: 100%; /* Chiếm toàn bộ chiều rộng */
+    flex-direction: column;
+    width: 100%;
   }
 
   .search-container > * {
-    width: 100% !important; /* Đảm bảo các ô tìm kiếm và bộ lọc chiếm toàn bộ chiều rộng */
+    width: 100% !important;
   }
 
   .account-table .ant-table {
-    min-width: 600px; /* Giảm chiều rộng tối thiểu của bảng trên tablet */
+    min-width: 600px;
+  }
+
+  .account-table .ant-table-thead > tr > th,
+  .account-table .ant-table-tbody > tr > td {
+    font-size: 13px;
+  }
+
+  .account-empty {
+    min-height: 150px;
+    padding: 1.5rem;
   }
 }
 
 @media (max-width: 576px) {
+  .account-container {
+    padding: 0.5rem;
+    max-height: 45vh;
+  }
+
   .account-title {
-    font-size: 18px; /* Giảm kích thước tiêu đề trên mobile */
+    font-size: 14px;
   }
 
   .account-table .ant-table {
-    min-width: 500px; /* Giảm chiều rộng tối thiểu của bảng trên mobile */
+    min-width: 500px;
   }
 
-  /* Ẩn bớt cột không quan trọng trên màn hình nhỏ (nếu cần) */
-  .account-table .ant-table-thead > tr > th:nth-child(3), /* Ví dụ: ẩn cột thứ 3 */
+  .account-table .ant-table-thead > tr > th,
+  .account-table .ant-table-tbody > tr > td {
+    font-size: 12px;
+  }
+
+  .account-table .ant-table-thead > tr > th:nth-child(3),
   .account-table .ant-table-tbody > tr > td:nth-child(3) {
-    display: none; /* Ẩn cột thứ 3 trên mobile */
+    display: none;
+  }
+
+  .account-empty {
+    min-height: 120px;
+    padding: 1rem;
+  }
+
+  .account-empty .ant-empty-description {
+    font-size: 12px;
   }
 }
